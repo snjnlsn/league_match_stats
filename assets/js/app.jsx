@@ -18,7 +18,7 @@ const handleMatchHistoryClick = () => {
 
   return (
     <Routes>
-      <Route path="/" element={
+      <Route path="/*" element={
         <>
         <button onClick={handleProfileClick}>Profile Summary</button>
         <button onClick={handleMatchHistoryClick}>Match History</button>
