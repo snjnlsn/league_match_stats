@@ -1,51 +1,34 @@
-// If you want to use Phoenix channels, run `mix help phx.gen.channel`
-// to get started and then uncomment the line below.
-// import "./user_socket.js"
-
-// You can include dependencies in two ways.
-//
-// The simplest option is to put them in assets/vendor and
-// import them using relative paths:
-//
-//     import "../vendor/some-package.js"
-//
-// Alternatively, you can `npm install some-package --prefix assets` and import
-// them using a path starting with the package name:
-//
-//     import "some-package"
-//
-
-// Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
-import "phoenix_html"
-// Establish Phoenix Socket and LiveView configuration.
-import { Socket } from "phoenix"
-import { LiveSocket } from "phoenix_live_view"
-import topbar from "topbar"
 import React from "react"
-import ReactDOM from "react-dom/client"
-import Hello from "./components/hello"
+import {
+ Routes,
+ Route,
+ useNavigate
+} from "react-router-dom"
+import MatchHistory from "./components/match_history"
+import Profile from "./components/profile"
 
-const container = document.getElementById("hello")
-const root = ReactDOM.createRoot(container)
-root.render(<Hello name="Sanjay" />)
+const App = (props) => {
+const navigate = useNavigate()
+const handleProfileClick = () => {
+ navigate('/profile')
+}
+const handleMatchHistoryClick = () => {
+  navigate('/match_history')
+}
 
-let csrfToken = document
-  .querySelector("meta[name='csrf-token']")
-  .getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {
-  params: { _csrf_token: csrfToken },
-})
+  return (
+    <Routes>
+      <Route path="/" element={
+        <>
+        <button onClick={handleProfileClick}>Profile Summary</button>
+        <button onClick={handleMatchHistoryClick}>Match History</button>
+        </>
+      } />
 
-// Show progress bar on live navigation and form submits
-topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })
-window.addEventListener("phx:page-loading-start", (_info) => topbar.show(300))
-window.addEventListener("phx:page-loading-stop", (_info) => topbar.hide())
+      <Route path="/profile" element={<Profile />}/>
+      <Route path="/match_history" element={<MatchHistory/>}/>
+    </Routes>
+  )
+}
 
-// connect if there are any LiveViews on the page
-liveSocket.connect()
-
-// expose liveSocket on window for web console debug logs and latency simulation:
-// >> liveSocket.enableDebug()
-// >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
-// >> liveSocket.disableLatencySim()
-window.liveSocket = liveSocket
+export default App

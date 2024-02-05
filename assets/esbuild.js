@@ -14,7 +14,7 @@ const plugins = [
 
 // Define esbuild options
 let opts = {
-  entryPoints: ["js/app.jsx"],
+  entryPoints: ["js/index.jsx"],
   bundle: true,
   logLevel: "info",
   target: "es2017",

@@ -14,16 +14,20 @@ defmodule LeagueMatchStatsWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # Other scopes may use custom stacks.
+  scope "/api", LeagueMatchStatsWeb do
+    pipe_through :api
+
+    get "/summoner", SummonerController, :get
+    get "/matches/:id", MatchController, :get
+    get "/matches", MatchController, :index
+  end
+
   scope "/", LeagueMatchStatsWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/*path", PageController, :home
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", LeagueMatchStatsWeb do
-  #   pipe_through :api
-  # end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:league_match_stats, :dev_routes) do
