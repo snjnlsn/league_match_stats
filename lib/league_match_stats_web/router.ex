@@ -19,14 +19,7 @@ defmodule LeagueMatchStatsWeb.Router do
     pipe_through :api
 
     get "/summoner", SummonerController, :get
-    get "/matches/:id", MatchController, :get
-    get "/matches", MatchController, :index
-  end
-
-  scope "/", LeagueMatchStatsWeb do
-    pipe_through :browser
-
-    get "/*path", PageController, :home
+    post "/matches", MatchController, :post
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
@@ -44,5 +37,11 @@ defmodule LeagueMatchStatsWeb.Router do
       live_dashboard "/dashboard", metrics: LeagueMatchStatsWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  scope "/", LeagueMatchStatsWeb do
+    pipe_through :browser
+
+    get "/*path", PageController, :home
   end
 end
