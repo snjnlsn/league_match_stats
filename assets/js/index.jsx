@@ -27,7 +27,7 @@ import { BrowserRouter } from "react-router-dom"
 
 import App from "./app"
 
-const container = document.getElementById("hello")
+const container = document.getElementById("react-container")
 const root = ReactDOM.createRoot(container)
 root.render(
   <BrowserRouter>
