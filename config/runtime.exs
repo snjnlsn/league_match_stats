@@ -1,4 +1,7 @@
 import Config
+import Dotenvy
+
+source!(["config/.env", System.get_env()])
 
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
@@ -19,6 +22,9 @@ import Config
 if System.get_env("PHX_SERVER") do
   config :league_match_stats, LeagueMatchStatsWeb.Endpoint, server: true
 end
+
+config :league_match_stats, LeagueMatchStats.Statistics.Client,
+  api_key: env!("RIOT_API_KEY", :string)
 
 if config_env() == :prod do
   database_url =

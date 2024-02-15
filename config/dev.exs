@@ -70,6 +70,11 @@ config :league_match_stats, LeagueMatchStatsWeb.Endpoint,
     ]
   ]
 
+config :league_match_stats, LeagueMatchStats.Statistics.Client,
+  base_url: "api.riotgames.com",
+  region: "americas",
+  platform: "na1"
+
 # Enable dev routes for dashboard and mailbox
 config :league_match_stats, dev_routes: true
 
