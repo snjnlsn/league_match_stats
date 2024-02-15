@@ -4,16 +4,12 @@ import {
  Route,
  useNavigate
 } from "react-router-dom"
-import MatchHistory from "./components/match_history"
 import Profile from "./components/profile"
 
-const App = (props) => {
+const App = (_props) => {
 const navigate = useNavigate()
 const handleProfileClick = () => {
  navigate('/profile')
-}
-const handleMatchHistoryClick = () => {
-  navigate('/match_history')
 }
 
   return (
@@ -21,12 +17,10 @@ const handleMatchHistoryClick = () => {
       <Route path="/*" element={
         <>
         <button onClick={handleProfileClick}>Profile Summary</button>
-        <button onClick={handleMatchHistoryClick}>Match History</button>
         </>
       } />
 
       <Route path="/profile" element={<Profile />}/>
-      <Route path="/match_history" element={<MatchHistory/>}/>
     </Routes>
   )
 }
