@@ -8,10 +8,6 @@ const Profile = (_) => {
   const [loading, setLoading] = useState(false)
   const [input, setInput] = useState("")
 
-  useEffect(() => {
-    getData("katevolved")
-  }, [])
-
   const getData = (name) => {
     setCurrentMatches([])
     setLoading(true)
@@ -51,23 +47,27 @@ const Profile = (_) => {
 
   return (
     <>
-      <div>
+      <div className="bg-zinc-900 p-4 m-4">
         <form
           action="/api/summoner"
           method="get"
           onSubmit={(e) => handleSubmit(e)}
+          className="grid grid-cols-search"
         >
-          <label htmlFor="header-search">
-            <span className="visually-hidden">Search Summoner</span>
-          </label>
           <input
             id="header-search"
             placeholder="Summoner"
+            className="bg-zinc-700"
             value={input}
             name="name"
             onChange={(e) => handleChange(e.target.value)}
           />
-          <button type="submit">Search</button>
+          <button
+            className="text-zinc-100 bg-zinc-500 hover:bg-zinc-400"
+            type="submit"
+          >
+            Search
+          </button>
         </form>
       </div>
       <MatchHistory

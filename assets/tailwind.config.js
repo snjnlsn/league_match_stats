@@ -19,6 +19,9 @@ module.exports = {
       colors: {
         brand: "#FD4F00",
       },
+      gridTemplateColumns: {
+        search: "4fr 1fr",
+      },
     },
   },
   plugins: [

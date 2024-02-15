@@ -69,7 +69,7 @@ defmodule LeagueMatchStats.Statistics.Match do
   defp calculate_kda(%{"deaths" => "0"}), do: "infinity"
 
   defp calculate_kda(%{"assists" => assists, "deaths" => deaths, "kills" => kills}),
-    do: ((assists + deaths) / kills) |> Float.to_string()
+    do: ((assists + deaths) / kills) |> Float.round(3) |> Float.to_string()
 
   defp format_game_start(unix_timestamp) do
     {:ok, time} =
