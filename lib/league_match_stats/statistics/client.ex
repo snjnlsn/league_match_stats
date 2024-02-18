@@ -4,7 +4,7 @@ defmodule LeagueMatchStats.Statistics.Client do
     with {:ok, resp} <-
            Req.get(base_request(:platform), url: "/lol/summoner/v4/summoners/by-name/#{name}"),
          body <- Map.get(resp, :body) do
-      {:ok, body["puuid"]}
+      {:ok, body}
     else
       _ -> {:error, "could not fetch summoner"}
     end

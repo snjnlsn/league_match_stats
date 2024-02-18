@@ -37,7 +37,7 @@ const MatchHistory = ({ matches, handlePaginate, loading }) => {
             return (
               <div
                 key={id}
-                className="phx-hero bg-zinc-900 grid sm:grid-rows-5 md:grid-rows-2 grid-cols-2 md:grid-cols-5 gap-4 m-4 p-4 justify-items-center items-center"
+                className="phx-hero bg-zinc-900 grid sm:grid-rows-5 md:grid-rows-2 grid-cols-2 gap-x-4 md:grid-cols-5 m-4 p-4 md:justify-items-center items-center"
               >
                 <div id="champion-photo" className="md:w-20 row-span-5">
                   <img

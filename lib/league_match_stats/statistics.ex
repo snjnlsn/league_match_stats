@@ -1,13 +1,14 @@
 defmodule LeagueMatchStats.Statistics do
-  alias LeagueMatchStats.Statistics.{Match, Client}
+  alias LeagueMatchStats.Statistics.{Match, Client, Summoner}
 
   def get_matches_for_summoner(name) do
-    with {:ok, puuid} <- Client.fetch_summoner(name),
+    with {:ok, summoner_resp} <- Client.fetch_summoner(name),
+         {:ok, %{puuid: puuid} = summoner} <- hydrate_summoner(summoner_resp),
          {:ok, match_ids} <- Client.fetch_match_ids(puuid),
          {initial_ids, remaining_ids} <- Enum.split(match_ids, 15),
          matches <-
            hydrate_matches(initial_ids, puuid) do
-      {:ok, %{matches: matches, remaining_match_ids: remaining_ids, puuid: puuid}}
+      {:ok, %{matches: matches, remaining_match_ids: remaining_ids, summoner: summoner}}
     else
       _error ->
         {:error, "error fetching matches"}
@@ -36,6 +37,17 @@ defmodule LeagueMatchStats.Statistics do
       end
     end)
     |> Enum.filter(&is_match/1)
+  end
+
+  defp hydrate_summoner(resp) do
+    {:ok,
+     %Summoner{
+       puuid: resp["puuid"],
+       name: resp["name"],
+       summoner_id: resp["id"],
+       icon_uri: resp["profileIconId"],
+       level: resp["summonerLevel"]
+     }}
   end
 
   defp is_match(%Match{}), do: true
